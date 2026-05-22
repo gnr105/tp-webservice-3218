@@ -1,0 +1,42 @@
+<form (ngSubmit)="ejecutarConversion()">
+  <fieldset>
+    <legend>Conversor De Divisas</legend>
+    
+    <!-- Cantidad -->
+    <div class="mb-3">
+      <label for="cantidadInput" class="form-label">Cantidad</label>
+      <input type="number" id="cantidadInput" name="cantidad" class="form-control" placeholder="Cantidad" [(ngModel)]="cantidad">
+    </div>
+    
+    <!-- Moneda de Origen -->
+    <div class="mb-3">
+      <label for="selectOrigen" class="form-label">De</label>
+      <select id="selectOrigen" name="monedaOrigen" class="form-select" [(ngModel)]="monedaOrigen">
+        <option value="" disabled selected>Seleccione una moneda</option>
+        <option *ngFor="let moneda of listaMonedas" [value]="moneda.codigo">
+            {{ moneda.codigo }} - {{ moneda.nombre }}
+        </option>
+      </select>
+    </div>
+    
+    <!-- Moneda de Destino -->
+    <div class="mb-3">
+      <label for="selectDestino" class="form-label">A</label>
+      <select id="selectDestino" name="monedaDestino" class="form-select" [(ngModel)]="monedaDestino">
+        <option value="" disabled selected>Seleccione una moneda</option>
+        <option *ngFor="let moneda of listaMonedas" [value]="moneda.codigo">
+            {{ moneda.codigo }} - {{ moneda.nombre }}
+        </option>
+    </select>
+    </div>
+    <!-- Input de Resultado -->
+    <div class="mb-3">
+      <label for="TextResult" class="form-label">Resultado</label>
+      <input type="text" id="TextResult" name="resultado" class="form-control" readonly [placeholder]="resultado ? '' : 'El resultado aparecerá aquí'"
+        [value]="resultado">
+    </div>
+    
+    <!-- Botón de envío -->
+    <button type="submit" class="btn btn-warning">Convertir -></button>
+  </fieldset>
+</form>

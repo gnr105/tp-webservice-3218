@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  background-color: #12141c; /* Color de fondo oscuro premium */
+  min-height: 100vh;
+}
+
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto hover interactivo */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 193, 7, 0.2) !important;
+}
