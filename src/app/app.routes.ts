@@ -9,11 +9,11 @@ export const routes: Routes = [
         pathMatch:"full"
     },
     {
-        path:"Moneda",
+        path:"moneda",
         component: Moneda
     },
     {
-        path:"Pelicula",
+        path:"pelicula",
         component: Pelicula
     }
 ];
