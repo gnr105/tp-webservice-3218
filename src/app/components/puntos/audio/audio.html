@@ -1,0 +1,62 @@
+<div class="container mt-5">
+  <div class="card shadow-sm p-4">
+    <h2 class="text-primary mb-4">Conversor de Texto a Audio (AI TTS)</h2>
+
+    <div class="mb-3">
+      <label for="textoInput" class="form-label fw-bold">Texto a convertir:</label>
+      <textarea 
+        id="textoInput" 
+        class="form-control" 
+        rows="4" 
+        [(ngModel)]="textoUsuario" 
+        placeholder="Escribe aquí el texto que la Inteligencia Artificial reproducirá...">
+      </textarea>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6 mb-3">
+        <label for="vozSelect" class="form-label fw-bold">Tipo de Voz:</label>
+        <select id="vozSelect" class="form-select" [(ngModel)]="vozSeleccionada">
+          <option value="alloy">Alloy (Neutral / Balanceada)</option>
+          <option value="echo">Echo (Cálida / Masculina)</option>
+          <option value="fable">Fable (Narrativa / Británica)</option>
+          <option value="onyx">Onyx (Profunda / Enérgica)</option>
+          <option value="nova">Nova (Clara / Femenina)</option>
+          <option value="shimmer">Shimmer (Profesional / Profesional)</option>
+        </select>
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="instruccionInput" class="form-label fw-bold">Tono / Instrucción de voz:</label>
+        <input 
+          id="instruccionInput" 
+          type="text" 
+          class="form-control" 
+          [(ngModel)]="tonoInstruccion" 
+          placeholder="Ej: Speak in a lively and optimistic tone.">
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <button 
+        class="btn btn-primary px-4 py-2" 
+        [disabled]="cargando" 
+        (click)="generarAudio()">
+        <span *ngIf="cargando" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        {{ cargando ? 'Generando Audio...' : 'Convertir a Audio' }}
+      </button>
+    </div>
+
+    <div *ngIf="errorMensaje" class="alert alert-danger" role="alert">
+      {{ errorMensaje }}
+    </div>
+
+    <div *ngIf="audioUrl" class="mt-3 p-3 bg-light rounded text-center border">
+      <p class="fw-bold text-success mb-2">¡Audio generado con éxito!</p>
+      <audio controls [src]="audioUrl" class="w-100">
+        Tu navegador no soporta el elemento de reproducción de audio.
+      </audio>
+    </div>
+
+  </div>
+</div>

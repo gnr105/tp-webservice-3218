@@ -1,0 +1,106 @@
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-dark">Punto 3: Estado del Clima en Jujuy</h2>
+    <p class="text-muted">Consulta meteorológica en tiempo real mediante API externa.</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4 h-100 border-0 bg-white">
+        
+        <div class="input-group mb-4">
+          <input 
+            type="text" 
+            class="form-control" 
+            [(ngModel)]="ciudadBusqueda" 
+            placeholder="Ej: San Salvador de Jujuy, Tilcara..."
+            (keyup.enter)="buscarClima()">
+          <button class="btn btn-primary" type="button" (click)="buscarClima()" [disabled]="cargando">
+            <i class="bi bi-search me-1"></i> Buscar
+          </button>
+        </div>
+
+        <div *ngIf="cargando" class="text-center py-5">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p class="text-muted mt-2">Obteniendo datos satelitales...</p>
+        </div>
+
+        <div *ngIf="errorMsg" class="alert alert-warning mb-0" role="alert">
+          {{ errorMsg }}
+        </div>
+
+        <div *ngIf="climaActual && !cargando" class="text-center">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge bg-success">Datos Actualizados</span>
+            <button class="btn btn-sm btn-outline-secondary" (click)="actualizarClima()">
+              <i class="bi bi-arrow-clockwise"></i> Actualizar Ahora
+            </button>
+          </div>
+
+          <h3 class="fw-bold text-secondary mb-0">{{ climaActual.localidad }}</h3>
+          <p class="text-muted small mb-3">{{ climaActual.provincia }}, {{ climaActual.pais }}</p>
+
+          <div class="d-flex align-items-center justify-content-center my-3">
+            <img [src]="climaActual.condicionIcono" alt="Icono Clima" class="weather-icon me-2">
+            <span class="display-3 fw-bold text-dark">{{ climaActual.temperatura }}°C</span>
+          </div>
+
+          <p class="fs-5 fw-medium text-capitalize text-primary mb-4">{{ climaActual.condicionTexto }}</p>
+
+          <div class="row g-2 bg-light rounded p-3 text-start">
+            <div class="col-6">
+              <span class="text-muted small d-block">Sensación Térmica:</span>
+              <strong class="text-dark">{{ climaActual.sensacionTermica }}°C</strong>
+            </div>
+            <div class="col-6">
+              <span class="text-muted small d-block">Humedad:</span>
+              <strong class="text-dark">{{ climaActual.humedad }}%</strong>
+            </div>
+            <div class="col-12 border-top pt-2 mt-2">
+              <span class="text-muted small d-block">Velocidad del Viento:</span>
+              <strong class="text-dark">{{ climaActual.viento }} km/h</strong>
+            </div>
+          </div>
+          
+          <p class="text-muted xs-small mt-3 mb-0">
+            Última sincronización: {{ climaActual.fechaConsulta | date:'HH:mm:ss' }}
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4 h-100 border-0 bg-white">
+        <h4 class="fw-bold text-secondary mb-3">Historial de Consultas</h4>
+        <p class="text-muted small">Haz clic sobre cualquier fila para volver a cargar esa localidad.</p>
+
+        <div class="table-responsive" *ngIf="historial.length > 0">
+          <table class="table table-hover align-middle custom-table">
+            <thead class="table-light">
+              <tr>
+                <th>Ciudad</th>
+                <th>Temp.</th>
+                <th>Hora</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of historial" (click)="seleccionarDelHistorial(item)" class="pointer-row">
+                <td class="fw-medium text-dark">{{ item.localidad }}</td>
+                <td>
+                  <span class="badge bg-light text-dark border">{{ item.temperatura }}°C</span>
+                </td>
+                <td class="text-muted small">{{ item.fechaConsulta | date:'HH:mm:ss' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div *ngIf="historial.length === 0" class="text-center py-5 my-auto">
+          <i class="bi bi-clock-history text-muted display-6 mb-2"></i>
+          <p class="text-muted mb-0">No hay registros en el historial de esta sesión.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

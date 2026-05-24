@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Peliculas } from '../../models/peliculas';
-import { PeliculaService } from '../../services/pelicula-service';
+import { Peliculas } from '../../../models/peliculas';
+import { PeliculaService } from '../../../services/pelicula-service';
+
 
 @Component({
   selector: 'app-pelicula',

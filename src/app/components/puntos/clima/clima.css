@@ -1,0 +1,11 @@
+.weather-icon {
+  width: 64px;
+  height: 64px;
+}
+.pointer-row {
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+.xs-small {
+  font-size: 0.75rem;
+}

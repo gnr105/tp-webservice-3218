@@ -1,0 +1,83 @@
+<div class="container mt-5">
+  <!-- Widget de Clima -->
+  <div *ngIf="datosClima" class="d-flex justify-content-end mb-3">
+    <div class="card border-0 shadow-sm bg-light flex-row align-items-center px-3 py-2 rounded-pill">
+      <img [src]="datosClima.condicionIcono" alt="Clima" width="25" class="me-2">
+      <div class="lh-1">
+        <p class="mb-0 fw-bold small text-dark">{{ datosClima.temperatura }}°C <span class="fw-normal text-muted">- {{ datosClima.localidad }}</span></p>
+        <small class="text-muted text-uppercase" style="font-size: 0.6rem;">{{ datosClima.condicionTexto }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold text-dark">Marcas de carros de lujo</h1>
+    <p class="text-muted">Selecciona una marca para ver sus modelos disponibles.</p>
+    <hr class="w-25 mx-auto border-primary border-2">
+  </div>
+
+  <div *ngIf="errorMsg" class="alert alert-danger" role="alert">
+    {{ errorMsg }}
+  </div>
+
+  <div *ngIf="cargandoMarcas" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando marcas...</span>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 g-3" *ngIf="!cargandoMarcas">
+    <div class="col" *ngFor="let marca of listaMarcas">
+      <div
+        class="d-flex align-items-center p-3 shadow-sm border-0 rounded-3 bg-white btn text-start w-100 list-group-item-action"
+        data-bs-toggle="modal" 
+        data-bs-target="#modalModelos"
+        (click)="seleccionarMarca(marca)">
+        <i class="bi bi-car-front text-primary fs-4 me-3"></i>
+        <span class="fw-semibold text-secondary text-uppercase">{{ marca.name }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalModelos" typeof="dialog" tabindex="-1" aria-labelledby="modalModelosLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg">
+      
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title fw-bold" id="modalModelosLabel">
+          Modelos de: {{ marcaSeleccionada?.name }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-submit="modal" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-4">
+        <div *ngIf="cargandoModelos" class="text-center py-4">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p class="text-muted mt-2 small">Buscando especificaciones...</p>
+        </div>
+
+        <div *ngIf="!cargandoModelos">
+          <p class="text-muted mb-3 small fw-bold uppercase tracking-wider">Línea de modelos autorizados:</p>
+          
+          <ul class="list-group list-group-flush" *ngIf="listaModelos.length > 0">
+            <li class="list-group-item d-flex align-items-center border-0 px-0 py-2" *ngFor="let modelo of listaModelos">
+              <i class="bi bi-check-circle-fill text-success me-3"></i>
+              <span class="fw-medium text-dark">{{ modelo.name }}</span>
+            </li>
+          </ul>
+
+          <div *ngIf="listaModelos.length === 0" class="text-center py-3">
+            <i class="bi bi-exclamation-triangle text-warning display-6 mb-2"></i>
+            <p class="text-muted mb-0">No se encontraron modelos registrados para esta marca en el catálogo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer border-0 bg-light">
+        <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
