@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Moneda } from "./components/puntos/moneda/moneda";
-import { Header } from './components/layout/header/header';
+import { Pelicula } from './components/pelicula/pelicula';
+
 
 @Component({
   selector: 'app-root',
-  imports: [Header,RouterOutlet],
+  imports: [Pelicula],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Requerido para el *ngFor
-import { PeliculaService } from '../../../services/pelicula-service';
-import { Peliculas } from '../../../models/peliculas'; // <-- Importamos con "s" al final
+import { CommonModule } from '@angular/common';
+import { Peliculas } from '../../models/peliculas';
+import { PeliculaService } from '../../services/pelicula-service';
 
 @Component({
   selector: 'app-pelicula',
@@ -11,7 +11,6 @@ import { Peliculas } from '../../../models/peliculas'; // <-- Importamos con "s"
 })
 export class Pelicula implements OnInit {
 
-  // Tu array ahora usa exactamente tu interfaz "Peliculas"
   listaPeliculas: Peliculas[] = [];
 
   constructor(private peliculaService: PeliculaService) {}
