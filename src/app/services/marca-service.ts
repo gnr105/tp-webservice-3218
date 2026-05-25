@@ -9,7 +9,7 @@ import { Modelos } from '../models/modelos';
 })
 export class MarcaService {
   private baseUrl = 'https://car-specs.p.rapidapi.com/v2/cars';
-  private apiKey = '361eb0c732msh3e2658b57e0af70p106057jsn7b2fbd1c858e'; // Tu Key de las capturas
+  private apiKey = '361eb0c732msh3e2658b57e0af70p106057jsn7b2fbd1c858e';
   private apiHost = 'car-specs.p.rapidapi.com';
 
   // Almacén local para evitar llamadas duplicadas a la API y cuidar el plan gratuito
